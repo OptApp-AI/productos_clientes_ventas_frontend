@@ -17,7 +17,7 @@ const TablaVentas = ({
     <Container>
       <Row>
         <Col>
-          <TableStyled hover>
+          <TableStyled striped hover>
             <thead>
               <tr>
                 <th>ID</th>

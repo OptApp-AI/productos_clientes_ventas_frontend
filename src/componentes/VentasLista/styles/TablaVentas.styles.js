@@ -31,6 +31,6 @@ export const TableStyled = styled(Table)`
   td {
     text-align: center;
     vertical-align: middle;
-    color: white;
+    color: white !important;
   }
 `;

@@ -40,18 +40,18 @@ const TablaClientes = ({
                   key={c.id}
                   onClick={() => manejarMostrarDetallesCliente(c.id)}
                 >
-                  <td style={{ color: "white" }}>{c.id}</td>
-                  <td style={{ color: "white" }}>{truncateTexto(c.NOMBRE)}</td>
+                  <td>{c.id}</td>
+                  <td>{truncateTexto(c.NOMBRE)}</td>
 
                   {shouldShow ? (
                     <>
-                      <td style={{ color: "white" }}>
+                      <td>
                         {c.CONTACTO
                           ? truncateTexto(c.CONTACTO)
                           : "NO DISPONIBLE"}
                       </td>
-                      <td style={{ color: "white" }}>{c.TELEFONO}</td>
-                      <td style={{ color: "white" }}>{c.TIPO_PAGO}</td>
+                      <td>{c.TELEFONO}</td>
+                      <td>{c.TIPO_PAGO}</td>
                     </>
                   ) : null}
 

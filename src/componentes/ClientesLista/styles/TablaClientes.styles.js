@@ -8,11 +8,11 @@ export const TableStyled = styled(Table)`
     height: 50vh;
     display: block;
     overflow: auto;
- 
+
     -ms-overflow-style: none;
     scrollbar-width: none;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
   }
@@ -28,6 +28,6 @@ export const TableStyled = styled(Table)`
   td {
     text-align: center;
     vertical-align: middle;
-    color: white;
+    color: white !important;
   }
 `;
