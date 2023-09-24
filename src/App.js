@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import GlobalStyles from "./GlobalStyles";
 
+// Hola mundo
 function App() {
   // Obtener informacion del usuario desde el Redux store
   const usuarioInfo = useSelector((state) => state.usuarioInfo);
