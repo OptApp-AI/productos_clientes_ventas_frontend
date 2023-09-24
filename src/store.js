@@ -6,7 +6,15 @@ import {
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import { usuarioInfoReducer } from "./reducers/usuarioReducers";
+import { cuentaActualizarReducer } from "./reducers/cuentaReducers";
+
+import {
+  usuarioListaReducer,
+  usuarioDetallesReducer,
+  usuarioActualizarReducer,
+  usuarioRegistrarReducer,
+  usuarioBorrarReducer,
+} from "./reducers/usuarioReducers";
 import {
   productoListaReducer,
   productoDetallesReducer,
@@ -15,12 +23,15 @@ import {
   productoBorrarReducer,
 } from "./reducers/productoReducers";
 
+import { usuarioInfoReducer } from "./reducers/sesionReducers";
+
 import {
   clienteListaReducer,
   clienteDetallesReducer,
   clienteActualizarReducer,
   clienteRegistrarReducer,
   clienteBorrarReducer,
+  clienteVentaListaReducer,
 } from "./reducers/clienteReducers";
 
 import {
@@ -28,11 +39,23 @@ import {
   ventaDetallesReducer,
   ventaActualizarReducer,
   ventaRegistrarReducer,
+  ventaReporteListaReducer,
 } from "./reducers/ventaReducers";
 
+import { rutaListaReducer } from "./reducers/rutaReducers";
+
 const reducer = combineReducers({
+  // Cuenta reducers
+  cuentaActualizar: cuentaActualizarReducer,
+
   // Usuario reducers
   usuarioInfo: usuarioInfoReducer,
+  usuarioLista: usuarioListaReducer,
+  usuarioDetalles: usuarioDetallesReducer,
+  usuarioActualizar: usuarioActualizarReducer,
+  usuarioRegistrar: usuarioRegistrarReducer,
+  usuarioBorrar: usuarioBorrarReducer,
+
   // Producto reducers
   productoLista: productoListaReducer,
   productoDetalles: productoDetallesReducer,
@@ -46,46 +69,32 @@ const reducer = combineReducers({
   clienteActualizar: clienteActualizarReducer,
   clienteRegistrar: clienteRegistrarReducer,
   clienteBorrar: clienteBorrarReducer,
+  clienteVentaLista: clienteVentaListaReducer,
+  rutaLista: rutaListaReducer,
 
   // Venta reducers
   ventaLista: ventaListaReducer,
   ventaDetalles: ventaDetallesReducer,
   ventaActualizar: ventaActualizarReducer,
   ventaRegistrar: ventaRegistrarReducer,
+  ventaReporteLista: ventaReporteListaReducer,
 });
 
 const middleware = [thunk];
 
-const tokens = localStorage.getItem("tokens")
-  ? JSON.parse(localStorage.getItem("tokens"))
-  : null;
+// Al establecer el valor inicial del token utilizando el valor almacenado en el localStorage, permites que el token se recupere y persista incluso después de recargar la aplicación o cerrar y volver a abrir la ventana del navegador.
 
-const productos = localStorage.getItem("productos")
-  ? JSON.parse(localStorage.getItem("productos"))
-  : null;
+// El localStorage es una forma de almacenamiento local en el navegador que retiene los datos incluso cuando la página web se cierra o se recarga. Al guardar el token en el localStorage, puedes acceder a él en el futuro y utilizarlo para establecer el estado inicial del Redux store.
 
-const clientes = localStorage.getItem("clientes")
-  ? JSON.parse(localStorage.getItem("clientes"))
-  : null;
+// Establecer el valor inicial del token utilizando el contenido del localStorage es una forma eficaz de mantener y persistir los datos relevantes, como la sesión del usuario, en la aplicación, incluso después de eventos como recargar la página o cerrar y volver a abrir la ventana del navegador.
 
-const ventas = localStorage.getItem("ventas")
-  ? JSON.parse(localStorage.getItem("ventas"))
+const token = localStorage.getItem("accessToken")
+  ? JSON.parse(localStorage.getItem("accessToken"))
   : null;
 
 const initialState = {
   usuarioInfo: {
-    tokens,
-  },
-  productoLista: {
-    productos,
-  },
-
-  clienteLista: {
-    clientes,
-  },
-
-  ventaLista: {
-    ventas,
+    token,
   },
 };
 

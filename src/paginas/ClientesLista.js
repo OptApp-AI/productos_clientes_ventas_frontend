@@ -1,26 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { borrarCliente, pedirClientesLista } from "../actions/clienteActions";
-import Loader from "../componentes/Loader";
-import Mensaje from "../componentes/Mensaje";
-import VentanaMostrarCliente from "../componentes/VentanaMostrarCliente";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import Loader from "../componentes/general/Loader";
+import VentanaMostrarCliente from "../componentes/ClientesLista/VentanaMostrarCliente";
 import {
   RESET_CLIENTE_BORRAR,
   RESET_CLIENTE_DETALLES,
 } from "../constantes/clienteConstantes";
+import ConfirmarBorrarObjeto from "../componentes/general/ConfirmarBorrarObjeto";
+import Mensaje from "../componentes/general/Mensaje";
+import FiltroListaClientes from "../componentes/ClientesLista/FiltroListaClientes";
+import TablaClientes from "../componentes/ClientesLista/TablaClientes";
+import {
+  StyledBoton,
+  StyledBotonPanel,
+  StyledCol,
+  StyledContainer,
+  StyledContenidoPrincipal,
+  StyledGridContainer,
+  StyledPanelControl,
+  StyledRow,
+  StyledTitulo,
+} from "./styles/ClientesLista.styles";
+import { useFiltros } from "./utilis/VentasLista.utilis";
+import {
+  filtrarClientes,
+  useMostrarDetallesCliente,
+} from "./utilis/ClienteLista.utilis";
+import PaginacionClientes from "../componentes/ClientesLista/PaginacionClientes";
+
+// Estilos
 
 const ClientesLista = () => {
   // Funcion para disparar las acciones
   const dispatch = useDispatch();
   // Funcion para nevagar en la aplicacion
   const navigate = useNavigate();
-  // Obtener el estado desde el Redux store
-  const clienteLista = useSelector((state) => state.clienteLista);
-  const { loading, clientes, error } = clienteLista;
+  // funcion para obtener el search param en el url
+  const location = useLocation();
+  const search = location.search;
 
-  // Obtener el estado desde el Redux sotore
+  console.log(search);
+  // Obtener lista de clientes desde el Redux store
+  const clienteLista = useSelector((state) => state.clienteLista);
+  const { loading, clientes, error, page, pages } = clienteLista;
+
+  // Obtener el estado borrar cliente desde el Redux sotore
   const clienteBorrar = useSelector((state) => state.clienteBorrar);
   const {
     loading: loadingBorrar,
@@ -28,93 +54,128 @@ const ClientesLista = () => {
     error: errorBorrar,
   } = clienteBorrar;
 
-  const [mostrarCliente, setMostrarCliente] = useState(false);
-  const [cliente, setCliente] = useState({});
+  // Hook para mostrar y ocultar panel de control en pantallas pequenas
+  const [mostrarPanel, setMostrarPanel] = useState(true);
 
+  // Custom Hook para filtrar y ordenar los clientes
+  // const { buscar, filtrarPor, ordenarPor, manejarFiltros } = useFiltros();
+
+  // Custom Hook para mostrar ventana con detalles del cliente
+  const {
+    mostrarCliente,
+    cliente,
+    manejarCerrarVentana,
+    manejarMostrarDetallesCliente,
+  } = useMostrarDetallesCliente(dispatch, navigate, clientes, search);
+
+  let clientesFiltrados = clientes;
+
+  // useEffect para mostrar alertas de eliminar cliente
   useEffect(() => {
+    if (loadingBorrar) {
+      toast.loading("Eliminando cliente");
+    }
+
     if (successBorrar) {
+      toast.dismiss();
+      toast.success("Cliente eliminado exitosamente", {
+        duration: 2000,
+      });
+      // Reset cliente borrar para que no se ejecute este bloque de codigo cada vez que se entra a la lista de clientes
       dispatch({ type: RESET_CLIENTE_BORRAR });
-      alert("La eliminación fue exitosa");
     }
 
-    // Si no hay clientes, disparar la accion de pedir clientes
-    if (!clientes) {
-      dispatch(pedirClientesLista());
+    if (errorBorrar) {
+      toast.remove();
+      toast.error("Error al eliminar cliente", {
+        duration: 4000,
+      });
     }
-  }, [dispatch, clientes, successBorrar]);
+  }, [successBorrar, errorBorrar, loadingBorrar, dispatch]);
 
+  // Funcion para redireccionar a la pagina del cliente
   const manejarClienteDetalles = (id) => {
     // Redireccionar a la pagina del cliente
     dispatch({ type: RESET_CLIENTE_DETALLES });
     navigate(`/clientes/${id}`);
   };
 
+  // Funcion para eliminar cliente
   const manejarBorrarCliente = (e, id) => {
     e.stopPropagation();
-    if (window.confirm("¿Está seguro de eliminar este cliente")) {
-      dispatch(borrarCliente(id));
-    } else {
-      alert("Operación cancelada");
-    }
+    toast((t) => <ConfirmarBorrarObjeto id={id} t={t} objeto={"cliente"} />, {
+      duration: 5000,
+    });
   };
 
-  const manejarCerrarVentana = () => {
-    setMostrarCliente(false);
-  };
+  // Renderizar loading si se estan cargando los clientes
+  if (loading)
+    return (
+      <StyledContainer fluid>
+        <StyledRow>
+          <StyledCol>
+            <Loader />
+          </StyledCol>
+        </StyledRow>
+      </StyledContainer>
+    );
 
-  const manejarMostrarDetallesCliente = (clienteId) => {
-    const clienteSeleccionado = { ...clientes.find((c) => c.id === clienteId) };
-    setCliente(clienteSeleccionado);
-    setMostrarCliente(true);
-  };
+  // Renderizar mensaje de error si el servidor regresa un error al pedir la lista de clientes
+  if (error)
+    return (
+      <StyledContainer fluid>
+        <StyledRow>
+          <StyledCol>
+            <Mensaje variant="danger">
+              Hubo un error al cargar la lista de clientes
+            </Mensaje>
+          </StyledCol>
+        </StyledRow>
+      </StyledContainer>
+    );
 
-  return loading ? (
-    <Loader />
-  ) : error ? (
-    <Mensaje variant="danger">{error}</Mensaje>
-  ) : (
+  // Renderizar tabla de clientes
+  return (
     clientes && (
-      <div style={{ padding: "25px" }}>
-        {loadingBorrar && <Loader />}
-        {errorBorrar && <Mensaje variant="danger">{errorBorrar}</Mensaje>}
-        {/* Esta el la parte que cambia en las paginas */}
-        <h1>Clientes</h1>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NOMBRE</th>
-              <th>EDITAR</th>
-              <th>BORRAR</th>
-            </tr>
-          </thead>
-          <tbody>
-            {clientes.map((c) => (
-              <tr
-                key={c.id}
-                onClick={() => manejarMostrarDetallesCliente(c.id)}
-              >
-                <td>{c.id}</td>
-                <td>{c.NOMBRE}</td>
-                <td>
-                  <Button onClick={() => manejarClienteDetalles(c.id)}>
-                    <i className="fa-solid fa-circle-info"></i>
-                  </Button>
-                </td>
-                <td>
-                  <Button
-                    variant="danger"
-                    onClick={(e) => manejarBorrarCliente(e, c.id)}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+      <>
+        <StyledGridContainer>
+          <StyledBotonPanel onClick={() => setMostrarPanel((state) => !state)} state={mostrarPanel}>
+             <i className="fa-solid fa-arrow-right"></i>
+          </StyledBotonPanel>
+          <StyledTitulo>Clientes</StyledTitulo>
+          {/* Panel de control para filtrar y ordenar clientes */}
+          <StyledPanelControl mostrarPanel={mostrarPanel}>
+            <FiltroListaClientes />
 
-        {/* Mostrar venta */}
+            {/* Exportar clientes */}
+            <StyledBoton
+              type="submit"
+              // onClick={() => manejarExportarVentas(ventasFiltradas)}
+            >
+              Descargar tabla de clientes
+            </StyledBoton>
+
+            {/* Mostrar resumen de clientes */}
+            <StyledBoton type="submit">Mostrar resumen de clientes</StyledBoton>
+          </StyledPanelControl>
+
+          {/* Tabla de clientes */}
+          <StyledContenidoPrincipal>
+            <TablaClientes
+              clientesFiltrados={clientesFiltrados}
+              manejarMostrarDetallesCliente={manejarMostrarDetallesCliente}
+              manejarClienteDetalles={manejarClienteDetalles}
+              manejarBorrarCliente={manejarBorrarCliente}
+            ></TablaClientes>
+            <PaginacionClientes
+              page={page}
+              pages={pages}
+              search={search}
+              isAdmin={false}
+            />
+          </StyledContenidoPrincipal>
+        </StyledGridContainer>
+        {/* Mostrar venta con detalles del cliente */}
         {mostrarCliente && (
           <VentanaMostrarCliente
             cliente={cliente}
@@ -122,7 +183,7 @@ const ClientesLista = () => {
             manejarCerrarVentana={manejarCerrarVentana}
           />
         )}
-      </div>
+      </>
     )
   );
 };
