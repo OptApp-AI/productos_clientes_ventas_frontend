@@ -10,6 +10,7 @@ const TablaProductos = ({
   productos,
   manejarMostrarDetallesProducto,
   manejarProductoDetalles,
+  manejarAjusteInventario,
   manejarBorrarProducto,
 }) => {
   // Determinar si el ancho de la pantalla es small o menor
@@ -31,10 +32,12 @@ const TablaProductos = ({
               <th>NOMBRE</th>
               <th>CANTIDAD</th>
               <th>PRECIO</th>
+              <th>AJUSTAR INVENTARIO</th>
             </>
           ) : null}
 
           <th>EDITAR</th>
+
           {isAdmin && <th>BORRAR</th>}
         </tr>
       </thead>
@@ -50,6 +53,11 @@ const TablaProductos = ({
                 <td>{p.NOMBRE}</td>
                 <td>{p.CANTIDAD}</td>
                 <td>{p.PRECIO}</td>
+                <td>
+                  <Button onClick={() => manejarAjusteInventario(p.id)}>
+                    <i className="fa-solid fa-clipboard"></i>
+                  </Button>
+                </td>
               </>
             ) : null}
 

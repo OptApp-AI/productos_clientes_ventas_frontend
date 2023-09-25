@@ -9,6 +9,7 @@ import {
   StyledLinkContainerEmpresa,
   StyledNavbar,
   StyledNavDropdown,
+  StyledNavLink,
   StyledNavWrapper,
   StyledText,
 } from "./styles/Encabezado.styles";
@@ -143,6 +144,22 @@ const Encabezado = () => {
                   </LinkContainer>
                   <LinkContainer to="/realizar-venta">
                     <NavDropdown.Item>Realizar Venta</NavDropdown.Item>
+                  </LinkContainer>
+                </StyledNavDropdown>
+
+                <StyledNavDropdown
+                  bgcolor={
+                    location.pathname === "/ajuste-inventarios"
+                      ? "#1E90FF"
+                      : "black"
+                  }
+                  title={<StyledText>Lista de Ajuste Inventario</StyledText>}
+                  id="basic-nav-dropdown"
+                >
+                  <LinkContainer to="/ajuste-inventarios">
+                    <NavDropdown.Item>
+                      Lista de Ajuste Inventario
+                    </NavDropdown.Item>
                   </LinkContainer>
                 </StyledNavDropdown>
 
