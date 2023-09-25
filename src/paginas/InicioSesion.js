@@ -6,6 +6,7 @@ import { login } from "../actions/sesionActions";
 import { toast } from "react-hot-toast";
 import {
   StyledBackground,
+  StyledButton,
   StyledContainer,
   StyledForm,
   StyledLogoContainer,
@@ -83,9 +84,9 @@ const InicioSesion = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          <Button type="submit" variant="primary">
+          <StyledButton type="submit" variant="primary">
             Iniciar sesión
-          </Button>
+          </StyledButton>
         </StyledForm>
       </StyledContainer>
     </StyledBackground>

@@ -22,7 +22,7 @@ const TablaClientes = ({
             <thead>
               <tr>
 
-                {ancho > 350 ? (
+                {ancho > 500 ? (
                   <th>ID</th>
                 ) : null}
                 <th>NOMBRE</th>
@@ -48,17 +48,17 @@ const TablaClientes = ({
                   key={c.id}
                   onClick={() => manejarMostrarDetallesCliente(c.id)}
                 >
-                  {ancho > 350 ? (
+                  {ancho > 500 ? (
                     <td>{c.id}</td>
                   ): null}
 
-                  <td>{truncateTexto(c.NOMBRE)}</td>
+                  <td>{c.NOMBRE}</td>
 
                   {shouldShow ? (
                     <>
                       <td>
                         {c.CONTACTO
-                          ? truncateTexto(c.CONTACTO)
+                          ? c.CONTACTO
                           : "NO DISPONIBLE"}
                       </td>
                     </>
@@ -66,7 +66,7 @@ const TablaClientes = ({
 
                   {ancho > 1000 ? (
                     <>
-                      <td>{c.TELEFONO}</td>
+                      <td>{c.TELEFONO.split('-')[0]}</td>
                       <td>{c.TIPO_PAGO}</td>
                     </>
                   ): null}

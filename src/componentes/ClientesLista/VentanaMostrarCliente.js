@@ -2,10 +2,12 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import {
   StyledButton,
+  StyledLi,
   StyledModalBody,
   StyledModalFooter,
   StyledModalHeader,
 } from "./styles/VentanaMostrarCliente.styles";
+import { separatePhones } from "./TablaClientes";
 
 const ORDER_WEEK = {
   LUNES: 1,
@@ -22,6 +24,9 @@ const VentanaMostrarCliente = ({
   mostrarCliente,
   manejarCerrarVentana,
 }) => {
+
+const telefonos = cliente.TELEFONO.split('-');
+
   return (
     cliente &&
     cliente.precios_cliente && (
@@ -38,7 +43,10 @@ const VentanaMostrarCliente = ({
             <strong>Contacto:</strong> {cliente.CONTACTO}
           </p>
           <p>
-            <strong>Telefono:</strong> {cliente.TELEFONO}
+            <strong>Telefonos:</strong> {telefonos.map((telefono,key) => (
+              <StyledLi key={key}>{telefono}</StyledLi>
+            ))
+            }
           </p>
           <p>
             <strong>Correo:</strong> {cliente.CORREO}

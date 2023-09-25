@@ -12,6 +12,8 @@ import {
   StyledProductoInfoContainer,
   StyledRow,
   StyledSeleccionadorCantidad,
+  StyledSeleccionadorForm,
+  StyledSubtotal,
 } from "./styles/FormularioProductosVenta.styles";
 import BotonOpcionesProducto from "./BotonOpcionesProducto";
 import { BASE_URL } from "../../constantes/constantes";
@@ -58,11 +60,13 @@ const FormularioProductoVenta = ({
       {productos.map((producto) => {
         return (
           <StyledProductoContenedor
+            confirmado= {producto.confirmado}
             key={producto.id}
             onClick={() => manejarMostrarDetallesProducto(producto.id)}
           >
             {/* Informacion del producto */}
-            <StyledProductoInfoContainer style={{ fontSize: "13px" }}>
+            <StyledProductoInfoContainer style={{fontSize: "13px"}}  confirmado= {producto.confirmado}>
+
               <span>{producto.producto_nombre} </span>
               <img
                 src={`${BASE_URL}${producto.producto_imagen}`}
@@ -73,7 +77,19 @@ const FormularioProductoVenta = ({
             <StyledOptionsContainer>
               {/* Input para seleccionar cantidad */}
               <StyledSeleccionadorCantidad onClick={(e) => e.stopPropagation()}>
-                <Form.Group controlId={producto.id}>
+                <StyledSubtotal confirmado={producto.confirmado}>
+                  
+                  {ancho > 360 ? (
+                    <span><span style={{fontWeight: 'bold'}}>Precio: </span>${producto.PRECIO}</span>
+                  ) : null} 
+                  
+                  {ancho > 900 ? (
+                    <span><span style={{fontWeight: 'bold'}}>Inventario: </span>{producto.producto_cantidad.toFixed(3)}</span>
+                  ) : null}
+                  
+                  <span><span style={{fontWeight: 'bold'}}>Subtotal: </span>${(producto.PRECIO*producto.cantidadVenta).toFixed(2)}</span>
+                </StyledSubtotal>
+                <StyledSeleccionadorForm controlId={producto.id}>
                   <Form.Control
                     disabled={producto.confirmado}
                     type="number"
@@ -86,51 +102,43 @@ const FormularioProductoVenta = ({
                       )
                     }
                   />
-                </Form.Group>
+                </StyledSeleccionadorForm>
               </StyledSeleccionadorCantidad>
 
               {/* Botones para el producto de venta */}
+
               <StyledButtonsContainer>
-                <BotonOpcionesProducto
-                  bg="green"
-                  producto={producto}
-                  onClick={manejarConfirmarProducto}
-                  disabled={producto.confirmado}
-                  gridArea={"Confirmar"}
-                >
-                  {ancho > 1000 ? (
-                    "Confirmar"
-                  ) : (
-                    <i className="fa-solid fa-check" />
-                  )}
-                </BotonOpcionesProducto>
+                {producto.confirmado == false ? (
+                  <BotonOpcionesProducto
+                    color="green"
+                    producto={producto}
+                    onClick={manejarConfirmarProducto}
+                    disabled={false}
+                    style={{gridArea: "Confirmar-Modificar"}}
+                  >
+                  <i className="fa-solid fa-check"/>
+                  </BotonOpcionesProducto>
+                ) : (
+                  <BotonOpcionesProducto
+                    color="blue"
+                    producto={producto}
+                    onClick={manejarConfirmarProducto}
+                    disabled={false}
+                    style={{gridArea: "Confirmar-Modificar"}}
+                  >
+                    <i className="fa-solid fa-pen-to-square"/>
+                  </BotonOpcionesProducto>
+                )}
 
                 <BotonOpcionesProducto
-                  bg="blue"
-                  producto={producto}
-                  onClick={manejarConfirmarProducto}
-                  disabled={!producto.confirmado}
-                  gridArea={"Modificar"}
-                >
-                  {ancho > 1000 ? (
-                    "Modificar"
-                  ) : (
-                    <i className="fa-solid fa-pen-to-square" />
-                  )}
-                </BotonOpcionesProducto>
-
-                <BotonOpcionesProducto
-                  bg="red"
+                  color="red"
                   producto={producto}
                   onClick={manejarCancelarProducto}
                   disabled={false}
-                  gridArea={"Eliminar"}
+                  style={{gridArea: "Eliminar"}}
                 >
-                  {ancho > 1000 ? (
-                    <>Eliminar</>
-                  ) : (
-                    <i className="fa-solid fa-xmark" />
-                  )}
+                  <i className="fa-solid fa-xmark"/>
+                  
                 </BotonOpcionesProducto>
               </StyledButtonsContainer>
             </StyledOptionsContainer>

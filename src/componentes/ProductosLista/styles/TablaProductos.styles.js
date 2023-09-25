@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import styled from "styled-components";
 
 // Estilos de la tabla
@@ -31,5 +31,17 @@ export const TableStyled = styled(Table)`
     text-align: center;
     vertical-align: middle;
     color: white !important;
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  @media screen and (max-width: 350px){
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    
+    i{
+      font-size: 17px;
+    }
   }
 `;

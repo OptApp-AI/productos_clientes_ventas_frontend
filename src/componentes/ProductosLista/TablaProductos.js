@@ -2,8 +2,9 @@ import React from "react";
 
 import ImagenObjeto from "../general/ImagenObjecto";
 import { useMediaQuery } from "react-responsive";
+import { UseScreenSize } from "../../paginas/utilis/UseScreenSize";
 import { Button } from "react-bootstrap";
-import { TableStyled } from "./styles/TablaProductos.styles";
+import { StyledButton, TableStyled } from "./styles/TablaProductos.styles";
 import { BASE_URL } from "../../constantes/constantes";
 
 const TablaProductos = ({
@@ -24,12 +25,17 @@ const TablaProductos = ({
     <TableStyled striped hover>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>IMAGEN</th>
+          {shouldShow ? (
+            <>
+              <th>ID</th>
+              <th>IMAGEN</th>
+            </>
+          ) : null}
+
+          <th>NOMBRE</th>
 
           {shouldShow ? (
             <>
-              <th>NOMBRE</th>
               <th>CANTIDAD</th>
               <th>PRECIO</th>
               <th>AJUSTAR INVENTARIO</th>
@@ -44,13 +50,20 @@ const TablaProductos = ({
       <tbody>
         {productos.map((p) => (
           <tr key={p.id} onClick={() => manejarMostrarDetallesProducto(p.id)}>
-            <td>{p.id}</td>
-            <td>
-              <ImagenObjeto src={`${BASE_URL}${p.IMAGEN}`} alt={p.NOMBRE} />
-            </td>
+          
+          {shouldShow ? (
+            <>
+              <td>{p.id}</td>
+              <td>
+                <ImagenObjeto src={`${BASE_URL}${p.IMAGEN}`} alt={p.NOMBRE} />
+              </td>
+            </>
+          ) : null}
+
+            <td>{p.NOMBRE}</td>
+
             {shouldShow ? (
               <>
-                <td>{p.NOMBRE}</td>
                 <td>{p.CANTIDAD}</td>
                 <td>{p.PRECIO}</td>
                 <td>
@@ -62,21 +75,21 @@ const TablaProductos = ({
             ) : null}
 
             <td>
-              <Button onClick={() => manejarProductoDetalles(p.id)}>
+              <StyledButton onClick={() => manejarProductoDetalles(p.id)}>
                 <i className="fa-solid fa-circle-info"></i>
-              </Button>
+              </StyledButton>
             </td>
             {/* Solo un admi puede borrar un producto */}
             {isAdmin && (
               <td>
-                <Button
+                <StyledButton
                   variant="danger"
                   onClick={(e) => {
                     manejarBorrarProducto(e, p.id);
                   }}
                 >
                   <i className="fa-solid fa-trash"></i>
-                </Button>
+                </StyledButton>
               </td>
             )}
           </tr>

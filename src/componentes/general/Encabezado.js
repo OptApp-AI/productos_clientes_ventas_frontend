@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
+  StyledImage,
   StyledImageContainer,
   StyledLinkContainerEmpresa,
   StyledNavbar,
@@ -12,6 +13,8 @@ import {
   StyledNavLink,
   StyledNavWrapper,
   StyledText,
+  StyledTextHGP,
+  StyledTextUsername,
 } from "./styles/Encabezado.styles";
 import { BASE_URL } from "../../constantes/constantes";
 
@@ -58,7 +61,7 @@ const Encabezado = () => {
                   }}
                 />
               </StyledImageContainer>
-              <StyledText>{username}</StyledText>
+              <StyledTextUsername>{username}</StyledTextUsername>
             </StyledNavWrapper>
           </LinkContainer>
         )}
@@ -66,13 +69,14 @@ const Encabezado = () => {
         {/* Logo de la empresa */}
         <StyledLinkContainerEmpresa to="/">
           <Nav.Link className="text-center">
-            <Image
+            <StyledImage
               src={`${BASE_URL}media/imagenes/general/logo.png`}
               alt="imagen de usuario"
               width="100px"
               style={{ marginRight: "20px" }}
             />
-            <StyledText>Hielo Gran Pacífico</StyledText>
+            
+            <StyledTextHGP>Hielo Gran Pacífico</StyledTextHGP>
           </Nav.Link>
         </StyledLinkContainerEmpresa>
 
