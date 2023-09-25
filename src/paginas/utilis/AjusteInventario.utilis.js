@@ -16,7 +16,7 @@ export const useMostrarDetallesAjusteInventario = (
   };
 
   // Funcion para mostrar ventana emergente con detalles del producto
-  const manejarMostrarDetallesProducto = (ajusteInventarioId) => {
+  const manejarMostrarDetallesAjusteInventario = (ajusteInventarioId) => {
     const ajusteInventarioSeleccionado = {
       ...ajusteInventarios.find((ai) => ai.id === ajusteInventarioId),
     };
@@ -29,6 +29,6 @@ export const useMostrarDetallesAjusteInventario = (
     setMostrarAjusteInventario,
     ajusteInventario,
     manejarCerrarVentana,
-    manejarMostrarDetallesProducto,
+    manejarMostrarDetallesAjusteInventario,
   };
 };

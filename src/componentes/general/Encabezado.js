@@ -10,7 +10,6 @@ import {
   StyledLinkContainerEmpresa,
   StyledNavbar,
   StyledNavDropdown,
-  StyledNavLink,
   StyledNavWrapper,
   StyledText,
   StyledTextHGP,
@@ -75,7 +74,7 @@ const Encabezado = () => {
               width="100px"
               style={{ marginRight: "20px" }}
             />
-            
+
             <StyledTextHGP>Hielo Gran Pacífico</StyledTextHGP>
           </Nav.Link>
         </StyledLinkContainerEmpresa>

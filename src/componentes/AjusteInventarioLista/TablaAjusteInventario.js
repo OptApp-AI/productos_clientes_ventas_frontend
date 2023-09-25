@@ -22,7 +22,7 @@ const TablaAjusteInventario = ({
             <>
               <th>BODEGA</th>
               <th>PRODUCTO</th>
-              <th>TIPO_AJUSTE</th>
+              <th>TIPO DE AJUSTE</th>
             </>
           ) : null}
 

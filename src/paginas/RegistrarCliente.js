@@ -128,8 +128,6 @@ const RegistrarCliente = () => {
     // Esta funcion permite crear un array de precios con el formato que recibe el backend
     const nuevosPreciosCliente = crearPreciosCliente(productosCliente);
 
-    console.log(ruta.selectedIds);
-
     dispatch(
       registrarCliente({
         NOMBRE: data.nombre,
@@ -179,7 +177,8 @@ const RegistrarCliente = () => {
     );
 
   return (
-    productos && (
+    productos &&
+    rutas && (
       <>
         <StyledContainer fluid>
           <h1>Registrar cliente</h1>
@@ -378,6 +377,7 @@ const useRutas = (rutas, dispatch) => {
     if (!rutas) {
       dispatch(pedirRutasLista());
     } else {
+      if (rutas.length === 0) return;
       const newRuta = rutas[0];
       setRuta({
         nombre: newRuta.NOMBRE,
@@ -388,7 +388,6 @@ const useRutas = (rutas, dispatch) => {
   }, [dispatch, rutas]);
 
   const modificarDayIds = (dayId, add) => {
-    console.log("2MODIFICAR ID");
     if (add) {
       const newSelectedIds = [...ruta.selectedIds, dayId];
       setRuta({ ...ruta, selectedIds: newSelectedIds });

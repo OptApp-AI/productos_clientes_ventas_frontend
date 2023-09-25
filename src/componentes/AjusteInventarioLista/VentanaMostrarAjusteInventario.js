@@ -37,7 +37,13 @@ const VentanaMostrarAjusteInventario = ({
             <strong>CANTIDAD:</strong> {ajusteInventario.CANTIDAD}
           </p>
           <p>
-            <strong>TIPO_AJUSTE:</strong> {ajusteInventario.TIPO_AJUSTE}
+            <strong>TIPO DE AJUSTE:</strong> {ajusteInventario.TIPO_AJUSTE}
+          </p>
+          <p>
+            <strong>STATUS:</strong> {ajusteInventario.STATUS}
+          </p>
+          <p>
+            <strong>OBSERVACIONES:</strong> {ajusteInventario.OBSERVACIONES}
           </p>
         </StyledModalBody>
         <StyledModalFooter>

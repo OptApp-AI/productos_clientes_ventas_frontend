@@ -43,6 +43,9 @@ const ClienteDetalles = ({ match }) => {
   const clienteDetalles = useSelector((state) => state.clienteDetalles);
   const { loading, cliente, error } = clienteDetalles;
 
+  // const rutaLista = useSelector((state) => state.rutaLista);
+  // const { rutas } = rutaLista;
+
   // Obtener el estado desde el Redux store
   const clienteActualizar = useSelector((state) => state.clienteActualizar);
   const {
@@ -50,6 +53,14 @@ const ClienteDetalles = ({ match }) => {
     success: successActualizar,
     error: errorActualizar,
   } = clienteActualizar;
+
+  // const {
+  //   ruta,
+  //   modificarDayIds,
+  //   modificarRuta,
+  //   mostrarRutas,
+  //   setMostrarRutas,
+  // } = useRutas(rutas, dispatch);
 
   const { preciosCliente, setPreciosCliente, manejarCambioPrecio } =
     usePrecios();

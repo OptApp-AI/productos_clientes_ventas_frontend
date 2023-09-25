@@ -12,7 +12,7 @@ export const StyledNavbar = styled(Navbar)`
 `;
 
 export const StyledLinkContainerEmpresa = styled(LinkContainer)`
-  @media screen and (max-width: 350px){
+  @media screen and (max-width: 350px) {
     padding: 0px;
     margin: 0px;
     width: 60px;
@@ -20,7 +20,7 @@ export const StyledLinkContainerEmpresa = styled(LinkContainer)`
 `;
 
 export const StyledImage = styled.img`
-  @media screen and (max-width: 350px){
+  @media screen and (max-width: 350px) {
     height: 45px;
     width: 70px;
   }
@@ -52,18 +52,13 @@ export const StyledNavDropdown = styled(NavDropdown)`
 `;
 
 export const StyledTextHGP = styled(StyledText)`
-  @media screen and (max-width: 990px){
+  @media screen and (max-width: 990px) {
     display: none;
   }
 `;
 
 export const StyledTextUsername = styled(StyledText)`
-  @media screen and (max-width: 450px){
+  @media screen and (max-width: 450px) {
     font-size: 1rem;
-
-export const StyledNavLink = styled(NavLink)`
-  & div {
-    color: ${(props) => props.bgcolor};
-
   }
 `;

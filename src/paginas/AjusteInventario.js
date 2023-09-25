@@ -3,14 +3,8 @@ import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import {
-  actualizarProducto,
-  obtenerProductoDetalles,
-} from "../actions/productoActions";
-import {
-  RESET_PRODUCTO_ACTUALIZAR,
-  RESET_PRODUCTO_DETALLES,
-} from "../constantes/productoConstantes";
+import { obtenerProductoDetalles } from "../actions/productoActions";
+import { RESET_PRODUCTO_DETALLES } from "../constantes/productoConstantes";
 import Loader from "../componentes/general/Loader";
 import Mensaje from "../componentes/general/Mensaje";
 import {
@@ -53,6 +47,7 @@ const AjusteInventario = () => {
 
   const [bodega, setBodega] = useState("");
   const [tipoAjuste, setTipoAjuste] = useState("FALTANTE");
+  const [observaciones, setObservaciones] = useState("");
 
   // useEffect para mostrar las alertas
   useEffect(() => {
@@ -111,6 +106,8 @@ const AjusteInventario = () => {
         PRODUCTO_NOMBRE: producto.NOMBRE,
         CANTIDAD: Number(cantidad),
         TIPO_AJUSTE: tipoAjuste,
+        STATUS: "REALIZADO",
+        OBSERVACIONES: observaciones,
       };
       console.log(ajusteInventario);
       dispatch(registrarAjustarInventario(ajusteInventario));
@@ -201,6 +198,16 @@ const AjusteInventario = () => {
                 <p style={{ color: "white" }}>
                   Cantidad de producto en stock: {cantidadInicial}
                 </p>
+              </StyledFormGroup>
+
+              <StyledFormGroup controlId="observaciones">
+                <Form.Label> Observaciones</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={observaciones}
+                  autoComplete="off"
+                  onChange={(e) => setObservaciones(e.target.value)}
+                ></Form.Control>
               </StyledFormGroup>
             </StyledCol>
           </StyledRow>
