@@ -17,6 +17,7 @@ import {
 } from "./styles/ProductosLista.styles";
 import TablaProductos from "../componentes/ProductosLista/TablaProductos";
 import { useMostrarDetallesProducto } from "./utilis/ProductosLista.utilis";
+import { RESET_AJUSTE_INVENTARIO_REGISTRAR } from "../constantes/ajusteInventarioConstantes";
 
 const ProductosLista = () => {
   // Funcion para disparar las acciones
@@ -72,6 +73,11 @@ const ProductosLista = () => {
     navigate(`/productos/${id}`);
   };
 
+  const manejarAjusteInventario = (id) => {
+    dispatch({ type: RESET_AJUSTE_INVENTARIO_REGISTRAR });
+    navigate(`/ajuste-inventario/${id}`);
+  };
+
   // Funcion para borrar el producto
   const manejarBorrarProducto = (e, id) => {
     e.stopPropagation();
@@ -119,6 +125,7 @@ const ProductosLista = () => {
                 productos={productos}
                 manejarMostrarDetallesProducto={manejarMostrarDetallesProducto}
                 manejarProductoDetalles={manejarProductoDetalles}
+                manejarAjusteInventario={manejarAjusteInventario}
                 manejarBorrarProducto={manejarBorrarProducto}
               />
             </StyledCol>

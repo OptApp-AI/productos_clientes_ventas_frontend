@@ -1,11 +1,11 @@
-import { Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Nav, NavDropdown, NavLink, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import styled from "styled-components";
 
 export const StyledNavbar = styled(Navbar)`
   height: 12vh;
 
-  @media screen and (max-width: 1200px){
+  @media screen and (max-width: 1200px) {
     height: auto;
     z-index: 1000;
   }
@@ -60,5 +60,10 @@ export const StyledTextHGP = styled(StyledText)`
 export const StyledTextUsername = styled(StyledText)`
   @media screen and (max-width: 450px){
     font-size: 1rem;
+
+export const StyledNavLink = styled(NavLink)`
+  & div {
+    color: ${(props) => props.bgcolor};
+
   }
 `;

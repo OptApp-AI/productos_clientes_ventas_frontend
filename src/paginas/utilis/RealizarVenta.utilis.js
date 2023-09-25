@@ -62,6 +62,7 @@ export const useProductosVenta = (productosCliente, setProductosCliente) => {
   };
 
   const manejarCambioCantidad = (e, nuevaCantidad, productoId) => {
+    console.log("nueva cantidad", nuevaCantidad);
     e.stopPropagation();
     // Obtener el index del producto cuya camtodad hay que cambiar
 
@@ -71,31 +72,31 @@ export const useProductosVenta = (productosCliente, setProductosCliente) => {
 
     const cantidadDisponible = productoSeleccionado.producto_cantidad;
 
+    const indexProducto = productosVenta.findIndex(
+      (producto) => producto.id === productoId
+    );
+
+    // Crear una copia del arreglo de productos
+    const nuevosProductosVenta = [...productosVenta];
+
     if (nuevaCantidad > cantidadDisponible) {
       toast.error(
         `La cantidad seleccionada debe ser inferior o igual a ${productoSeleccionado.producto_cantidad}`,
         { duration: 4000 }
       );
-    } else {
-      if (nuevaCantidad <= 0) {
-        nuevaCantidad = 1;
-      } else {
-        const indexProducto = productosVenta.findIndex(
-          (producto) => producto.id === productoId
-        );
 
-        // Crear una copia del arreglo de productos
-        const nuevosProductosVenta = [...productosVenta];
-
-        // Actualizar el precio con el index seleccionado
-        nuevosProductosVenta[indexProducto] = {
-          ...productosVenta[indexProducto],
-          cantidadVenta: nuevaCantidad,
-        };
-
-        setProductosVenta(nuevosProductosVenta);
-      }
+      nuevaCantidad = cantidadDisponible;
+    } else if (nuevaCantidad <= 0) {
+      nuevaCantidad = null;
     }
+
+    // Actualizar el precio con el index seleccionado
+    nuevosProductosVenta[indexProducto] = {
+      ...productosVenta[indexProducto],
+      cantidadVenta: nuevaCantidad,
+    };
+
+    setProductosVenta(nuevosProductosVenta);
   };
 
   const manejarDesabilitarVenta = (nuevosProductosVenta) => {

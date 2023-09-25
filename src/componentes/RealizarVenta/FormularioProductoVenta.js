@@ -40,7 +40,7 @@ const FormularioProductoVenta = ({
     setMostrarProducto(true);
   };
 
-  const {ancho, alto} = UseScreenSize();
+  const { ancho, alto } = UseScreenSize();
 
   // Si no hay productos seleccionados pedir al usuario que seleccione al menos uno
   if (!productos.length)
@@ -64,9 +64,9 @@ const FormularioProductoVenta = ({
             key={producto.id}
             onClick={() => manejarMostrarDetallesProducto(producto.id)}
           >
-
             {/* Informacion del producto */}
             <StyledProductoInfoContainer style={{fontSize: "13px"}}  confirmado= {producto.confirmado}>
+
               <span>{producto.producto_nombre} </span>
               <img
                 src={`${BASE_URL}${producto.producto_imagen}`}
@@ -138,6 +138,7 @@ const FormularioProductoVenta = ({
                   style={{gridArea: "Eliminar"}}
                 >
                   <i className="fa-solid fa-xmark"/>
+                  
                 </BotonOpcionesProducto>
               </StyledButtonsContainer>
             </StyledOptionsContainer>
