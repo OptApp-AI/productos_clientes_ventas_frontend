@@ -48,7 +48,7 @@ const AjusteInventario = () => {
     error: errorAjusteInventario,
   } = ajusteInventarioRegistrar;
 
-  const [cantidadInicial, setCantidadInicial] = useState(0);
+  const [cantidadInicial, setCantidadInicial] = useState();
   const [cantidad, setCantidad] = useState(0);
 
   const [bodega, setBodega] = useState("");
@@ -100,7 +100,7 @@ const AjusteInventario = () => {
       toast.error(
         "No hay suficiente cantidad en el inventario para este ajuste."
       );
-    } else if (cantidad === 0) {
+    } else if (cantidad <= 0) {
       toast.dismiss();
       toast.error("La cantidad seleccionada debe ser mayor a 0.");
     } else {
@@ -109,7 +109,7 @@ const AjusteInventario = () => {
         BODEGA: bodega,
         PRODUCTO: Number(productoId),
         PRODUCTO_NOMBRE: producto.NOMBRE,
-        CANTIDAD: cantidad,
+        CANTIDAD: Number(cantidad),
         TIPO_AJUSTE: tipoAjuste,
       };
       console.log(ajusteInventario);
@@ -122,9 +122,6 @@ const AjusteInventario = () => {
     dispatch({ type: RESET_PRODUCTO_DETALLES });
     navigate("/productos");
   };
-
-  const isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
-  // const isAdmin = false;
 
   const CAJERO = JSON.parse(localStorage.getItem("name"));
 
@@ -154,7 +151,7 @@ const AjusteInventario = () => {
       </StyledContainer>
     );
 
-  if (isAdmin && producto)
+  if (producto)
     return (
       <StyledContainer fluid>
         <h1>Producto #{producto.id}</h1>
@@ -198,8 +195,8 @@ const AjusteInventario = () => {
                 <Form.Control
                   type="number"
                   value={cantidad}
-                  min={cantidad}
-                  onChange={(e) => setCantidad(Number(e.target.value))}
+                  onChange={(e) => setCantidad(e.target.value)}
+                  step="any"
                 ></Form.Control>
                 <p style={{ color: "white" }}>
                   Cantidad de producto en stock: {cantidadInicial}
