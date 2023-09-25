@@ -50,3 +50,7 @@ export const StyledButton = styled(Button)`
   color: #fff;
   font-weight: 700;
 `;
+
+export const StyledLi = styled.li`
+  margin-left: 15px;
+`;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Col, Form, Modal } from "react-bootstrap";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -32,6 +32,10 @@ const VentanaMostrarVenta = ({
 
   // Hook para calcular y mostrar el cambio de la venta
   const [cambio, setCambio] = useState(0);
+
+  //Referencias de los botones
+  const confirmarRef = useRef(null);
+  const cancelarRef = useRef(null);
 
   // Funcion para realizar la venta
   const manejarRealizarVenta = (e) => {
@@ -87,7 +91,12 @@ const VentanaMostrarVenta = ({
                     onChange={(e) => setCambio(e.target.value - monto)}
                   ></Form.Control>
                 </Form.Group>
-                <StyledButtonConfirmar type="submit">
+                <StyledButtonConfirmar 
+                  color='green' 
+                  ref={confirmarRef}
+                  type="submit"
+                  onFocus={() => confirmarRef.current.blur()}
+                >
                   Confirmar
                 </StyledButtonConfirmar>
               </Form>
@@ -122,8 +131,11 @@ const VentanaMostrarVenta = ({
         </Modal.Body>
         <Modal.Footer>
           <StyledButtonCancelar
+            color='red'
             variant="danger"
             onClick={() => setMostrarVenta(false)}
+            ref= {cancelarRef}
+            onFocus= {() => cancelarRef.current.blur()}
           >
             Cancelar
           </StyledButtonCancelar>

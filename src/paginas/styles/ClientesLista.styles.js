@@ -12,11 +12,11 @@ export const StyledGridContainer = styled.div`
   );
 
   height: 88vh;
-  width: 100%;
-  padding: 0px 10px;
+  width: 100vw;
+  padding: 0px 0px;
 
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 0px;
   grid-template-columns: 2.5fr 8fr;
   grid-template-rows: 0.7fr 5.7fr 1.5fr;
   grid-template-areas:
@@ -116,10 +116,9 @@ export const StyledBotonPanel = styled(Button)`
 
 export const StyledContenidoPrincipal = styled.div`
   grid-area: ContenidoPrincipal;
-  overflow: auto;
-  padding: 1rem 0;
+  padding: 0;
   padding-top: 0;
-  position: absolute;
+  position: relative;
   width: 100%;
 
   -ms-overflow-style: none;
@@ -141,7 +140,6 @@ export const StyledTitulo = styled.h1`
 
 export const StyledContainer = styled(Container)`
   height: 100%;
-  padding: 2rem 0;
   background: linear-gradient(
     rgb(54, 54, 82),
     15%,

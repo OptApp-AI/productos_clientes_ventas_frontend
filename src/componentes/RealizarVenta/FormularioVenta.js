@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import {
   calcularMonto,
@@ -89,6 +89,8 @@ const FormularioVenta = ({
 
   const VENDEDOR = JSON.parse(localStorage.getItem("name"));
 
+  const buttonRef = useRef(null);
+
   return (
     <StyledForm onSubmit={manejarCrearVenta}>
 
@@ -178,7 +180,13 @@ const FormularioVenta = ({
       <p className="text-light fs-6 text-center">
         (Monto total: ${monto.toFixed(2)})
       </p>
-      <StyledBoton disabled={deshabilitarVenta} type="submit">
+      <StyledBoton 
+        color='green' 
+        disabled={deshabilitarVenta} 
+        type="submit"
+        ref={buttonRef}
+        onFocus={() => buttonRef.current.blur()}
+      >
         Realizar venta
       </StyledBoton>
     </StyledForm>

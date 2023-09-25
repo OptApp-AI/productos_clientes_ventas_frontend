@@ -1,6 +1,7 @@
 import { Button, Col, Row, Form } from "react-bootstrap";
 
 import styled from "styled-components";
+import { StyledButton } from "./FormularioProductosVenta.styles";
 
 export const StyledRow = styled(Row)`
   width: 100%;
@@ -34,19 +35,15 @@ export const StyledFormGroup = styled(Form.Group)`
   }
 `;
 
-export const StyledButtonConfirmar = styled(Button)`
+export const StyledButtonConfirmar = styled(StyledButton)`
   position: fixed;
   bottom: 0;
   left: 0;
   margin-bottom: 15px;
   margin-left: 15px;
-  background-color: rgb(20, 50, 100);
-  color: white;
   font-weight: "bold";
 `;
 
-export const StyledButtonCancelar = styled(Button)`
-  background-color: red;
-  color: #fff;
+export const StyledButtonCancelar = styled(StyledButton)`
   font-weight: bold;
 `;

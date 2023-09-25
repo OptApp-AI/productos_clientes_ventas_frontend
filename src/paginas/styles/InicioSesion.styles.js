@@ -1,4 +1,4 @@
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
 import { BASE_URL } from "../../constantes/constantes";
 
@@ -16,6 +16,10 @@ export const StyledBackground = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 2;
+
+  @media screen and (max-width: 1200px){
+    height: 100%;
+  }
 `;
 
 export const StyledContainer = styled.div`
@@ -35,6 +39,11 @@ export const StyledLogoContainer = styled.div`
   img {
     height: 90%;
     width: 200px;
+
+    @media screen and (max-height:500px){
+      height: 90%;
+      width: 120px;
+    }
   }
 `;
 
@@ -59,5 +68,22 @@ export const StyledForm = styled(Form)`
   input {
     margin-bottom: 20px;
     min-width: 280px;
+    
+    @media screen and (min-height: 300px) and (max-height: 400px){
+      margin-bottom: 0px;
+      padding: 0.25rem 1.5rem;
+    }
+  }
+
+  @media screen and (min-height: 300px) and (max-height: 400px){
+    height: 250px; 
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  @media screen and (min-height: 300px) and (max-height: 400px){
+    font-size: 1rem;
+    padding: 10px;
+    margin-top: 7px;
   }
 `;

@@ -1,30 +1,27 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import styled from "styled-components";
-
-const StyledButton = styled(Button)`
-  background-color: ${({ bg }) => bg};
-  color: #fff;
-  grid-area: ${({gridArea}) => gridArea};
-`;
+import React, { useRef } from "react";
+import { StyledButton, StyledButtonContainer } from "./styles/FormularioProductosVenta.styles";
 
 const BotonOpcionesProducto = ({
-  bg,
+  color,
   children,
   producto,
   onClick,
   disabled,
   gridArea,
 }) => {
+  const buttonRef= useRef(null);
   return (
-    <StyledButton
-      disabled={disabled}
-      onClick={(e) => onClick(e, producto.id)}
-      bg={bg}
-      gridArea={gridArea}
-    >
-      {children}
-    </StyledButton>
+    <StyledButtonContainer>
+      <StyledButton
+        ref={buttonRef}
+        disabled={disabled}
+        onClick={(e) => onClick(e, producto.id)}
+        color={color}
+        onFocus={() => buttonRef.current.blur()}
+      >
+        {children}
+      </StyledButton>
+    </StyledButtonContainer>
   );
 };
 

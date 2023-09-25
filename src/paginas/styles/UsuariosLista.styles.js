@@ -33,6 +33,7 @@ export const StyledRow = styled(Row)`
   display: flex;
   align-items: center;
   max-width: 120rem;
+  --bs-gutter-x: 0;
 `;
 
 export const StyledCol = styled(Col)`
