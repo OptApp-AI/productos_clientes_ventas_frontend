@@ -44,6 +44,11 @@ import {
 
 import { rutaListaReducer } from "./reducers/rutaReducers";
 
+import {
+  ajusteInventarioListaReducer,
+  ajusteInventarioRegistrarReducer,
+} from "./reducers/ajusteInventarioReducer";
+
 const reducer = combineReducers({
   // Cuenta reducers
   cuentaActualizar: cuentaActualizarReducer,
@@ -78,6 +83,10 @@ const reducer = combineReducers({
   ventaActualizar: ventaActualizarReducer,
   ventaRegistrar: ventaRegistrarReducer,
   ventaReporteLista: ventaReporteListaReducer,
+
+  // Ajustar inventario
+  ajusteInventarioLista: ajusteInventarioListaReducer,
+  ajusteInventarioRegistrar: ajusteInventarioRegistrarReducer,
 });
 
 const middleware = [thunk];

@@ -19,6 +19,8 @@ import CuentaDetalles from "./paginas/CuentaDetalles";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import GlobalStyles from "./GlobalStyles";
+import AjusteInventario from "./paginas/AjusteInventario";
+import AjusteInventarioLista from "./paginas/AjusteinventarioLista";
 
 // Hola mundo
 function App() {
@@ -51,6 +53,10 @@ function App() {
               <Route path="/productos" element={<ProductosLista />} />
               <Route path="/productos/:id" element={<ProductoDetalles />} />
               <Route
+                path="/ajuste-inventario/:id"
+                element={<AjusteInventario />}
+              />
+              <Route
                 path="/registrar-producto"
                 element={<RegistrarProducto />}
               />
@@ -72,6 +78,10 @@ function App() {
 
               {/* Cuenta */}
               <Route path="/cuenta" element={<CuentaDetalles />} />
+              <Route
+                path="/ajuste-inventarios"
+                element={<AjusteInventarioLista />}
+              />
             </>
           ) : (
             // Inicio sesion
