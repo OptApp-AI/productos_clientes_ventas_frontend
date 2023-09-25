@@ -38,7 +38,7 @@ const FormularioProductoVenta = ({
     setMostrarProducto(true);
   };
 
-  const {ancho, alto} = UseScreenSize();
+  const { ancho, alto } = UseScreenSize();
 
   // Si no hay productos seleccionados pedir al usuario que seleccione al menos uno
   if (!productos.length)
@@ -61,9 +61,8 @@ const FormularioProductoVenta = ({
             key={producto.id}
             onClick={() => manejarMostrarDetallesProducto(producto.id)}
           >
-
             {/* Informacion del producto */}
-            <StyledProductoInfoContainer style={{fontSize: "13px"}}>
+            <StyledProductoInfoContainer style={{ fontSize: "13px" }}>
               <span>{producto.producto_nombre} </span>
               <img
                 src={`${BASE_URL}${producto.producto_imagen}`}
@@ -99,7 +98,11 @@ const FormularioProductoVenta = ({
                   disabled={producto.confirmado}
                   gridArea={"Confirmar"}
                 >
-                  {ancho > 1000 ? "Confirmar": <i className="fa-solid fa-check"/>}
+                  {ancho > 1000 ? (
+                    "Confirmar"
+                  ) : (
+                    <i className="fa-solid fa-check" />
+                  )}
                 </BotonOpcionesProducto>
 
                 <BotonOpcionesProducto
@@ -109,7 +112,11 @@ const FormularioProductoVenta = ({
                   disabled={!producto.confirmado}
                   gridArea={"Modificar"}
                 >
-                  {ancho > 1000 ? "Modificar": <i className="fa-solid fa-pen-to-square"/>}
+                  {ancho > 1000 ? (
+                    "Modificar"
+                  ) : (
+                    <i className="fa-solid fa-pen-to-square" />
+                  )}
                 </BotonOpcionesProducto>
 
                 <BotonOpcionesProducto
@@ -119,7 +126,11 @@ const FormularioProductoVenta = ({
                   disabled={false}
                   gridArea={"Eliminar"}
                 >
-                  {(ancho > 1000) ? <>Eliminar</>:<i className="fa-solid fa-xmark"/>}
+                  {ancho > 1000 ? (
+                    <>Eliminar</>
+                  ) : (
+                    <i className="fa-solid fa-xmark" />
+                  )}
                 </BotonOpcionesProducto>
               </StyledButtonsContainer>
             </StyledOptionsContainer>
